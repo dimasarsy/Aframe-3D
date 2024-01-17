@@ -1,0 +1,40 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <title>A-Frame 2</title>
+</head>
+<body>
+    <a-scene>
+        <a-assets>
+            <img src="texture\Brick\basecolor.jpg" id="base">
+            <img src="texture\Brick\normal.jpg" id="normal">
+            <img src="texture\Brick\height.jpg" id="height">
+        </a-assets>
+        <a-box
+            src = "#base"
+            repeat = "2 2"
+            normal-map ="#normal"
+            segments-height = 100
+            segments-widht = 100
+            segments-depth = 100
+            normal-texture-repeat = "2 2"
+            displacement-map = "#height"
+            displacement-bias = 0
+            displacement-scale = 0.2
+            displacement-texture-repeat = "2 2"
+            position = "-1 1.5 -2"
+        ></a-box>
+        <a-sphere
+            src = "#base"
+            repeat = "4 4"
+            position = "1 1.5 -2"
+            normal-texture-repeat = "4 4"
+            normal-map ="#normal"
+            radius = 1
+        ></a-sphere>
+    </a-scene>
+</body>
+</html>

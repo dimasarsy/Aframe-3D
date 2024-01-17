@@ -1,0 +1,40 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <title>11-Mixin</title>
+</head>
+<body>
+    <a-scene>
+        <a-assets>
+            <a-mixin
+                id="kotakmerah"
+                geometry="primitive:box"
+                material="color:red"
+            ></a-mixin>
+            <a-mixin
+                id="berputar"
+                animation="
+                    property:rotation;
+                    dur:2000;
+                    to: 0 360 0;
+                    loop:true"
+            ></a-mixin>
+            <a-mixin
+                id="hijau"
+                material="color:green"
+            ></a-mixin>
+        </a-assets>
+
+        <a-camera>
+            <a-cursor></a-cursor>
+        </a-camera>
+
+        <a-entity position="2 1.5 -3" mixin="kotakmerah hijau berputar"></a-entity>
+        <a-entity position="0 1.5 -3" mixin="berputar kotakmerah hijau" material="color:#aaaa00"></a-entity>
+        <a-entity position="-2 1.5 -3" mixin="kotakmerah berputar"></a-entity>
+    </a-scene>
+</body>
+</html>

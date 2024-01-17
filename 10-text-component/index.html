@@ -1,0 +1,32 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <title>10-Text-Component</title>
+</head>
+<body>
+    <a-scene>
+        <a-text
+            value="Contoh Teks"
+            color=red
+            position="3 1.5 -3"
+        ></a-text>
+
+        <a-entity
+            text="
+                value:Contoh Text Dasar \n Ini adalah sebuah teks yang menjadi contoh untuk belajar Text Component \n Ini adalah sebuah teks yang menjadi contoh untuk belajar Text Component;
+                color:red;
+                font:font\Monoid.fnt;
+                wrapCount:15;
+                align:center;
+             "
+            geometry="primitive:plane; width:auto; height:auto"
+            material="color:#aaaaaa"
+            position="0 1.5 -2"
+        ></a-entity>
+
+    </a-scene>
+</body>
+</html>

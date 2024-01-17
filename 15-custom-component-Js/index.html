@@ -1,0 +1,32 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.js"></script>
+    <title>15-Custom Componenet JS Scripting</title>
+</head>
+<body>
+    <script>
+        AFRAME.registerComponent('hello-aframe',{
+            schema:{
+                pesan:{type:"string", default:"hello"},
+                pesan2:{type:"string", default:"sesuatu"},
+            },
+            init : function(){
+                console.log(this.data.pesan + " " + this.data.pesan2);
+            }
+        });
+    </script>
+    <a-scene>
+        <a-entity hello-aframe="pesan:hello; pesan2:entity baru"></a-entity>
+        <a-box
+            hello-aframe="pesan:goodbye; pesan2:"
+            id="box1"
+            material="color:red"
+            position="0 1.5 -3"
+        ></a-box>
+    </a-scene>
+</body>
+</html>

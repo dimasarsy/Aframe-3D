@@ -1,0 +1,40 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <!-- animation 3d --> <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.js"></script>
+    <title>8-Model3D</title>
+</head>
+<body>
+    <a-scene>
+        <!-- cara assets -->
+        <a-assets>
+            <a-assets-item id="lampu" src="model\Dream.glb"></a-assets-item>
+            <a-assets-item id="mixamo" src="model\mixamo.glb"></a-assets-item>
+        </a-assets>
+
+        <a-entity
+            gltf-model="#mixamo"
+            position="-3 1.5 -3"
+            animation-mixer="clip:chicken;"
+        ></a-entity>
+
+        <!-- cara a biasa -->
+        <a-gltf-model 
+            src="model\scene.gltf" 
+            position="0 1.5 -3"
+            scale= "3 3 3"
+        ></a-gltf-model>
+
+        <!-- cara entity -->
+        <a-entity
+            gltf-model="model\mixamo.glb"
+            position="3 1.5 -3"
+            animation-mixer="clip:hiphop"
+        ></a-entity>
+
+    </a-scene>
+</body>
+</html>

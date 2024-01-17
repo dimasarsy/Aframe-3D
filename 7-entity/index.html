@@ -1,0 +1,27 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <title>7-Entity</title>
+</head>
+<body>
+    <a-scene>
+        <a-entity
+            light="type:point; color:#ffffff"
+            position="-2 1.5 -3"
+        ></a-entity>
+
+        <!-- <a-light type="point"></a-light> -->
+        
+        <a-entity
+            geometry="primitive:box"
+            material="color:#55aa00"
+            position="2 1.5 -3"
+        ></a-entity>
+        
+        <!-- <a-box position="0 1.5 -3" color=green></a-box> -->
+    </a-scene>
+</body>
+</html>

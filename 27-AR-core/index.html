@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@master/dist/aframe-master.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/chenzlabs/aframe-ar@master/dist/aframe-ar.min.js"></script>
+    <title>27-AR Core</title>
+</head>
+<body>
+    <script>
+        function tampilPesan(pesan){
+            let hud = document.querySelector("#hud");
+            hud.setAttribute('value',pesan);
+        }
+        AFRAME.registerComponent("ar-logic",{
+            init : function(){
+                tampilPesan('ar-logic running');
+            },
+            tick : function(){
+                let cam = document.querySelector("#cam");
+                if(!cam) {
+                    return;}
+                tampilPesan('cam detected');
+                
+                let tumbukan = cam.components.raycaster.getIntersection(this.el);
+                if(!tumbukan) {
+                    return;}
+                tampilPesan('ada tumbukan' + tumbukan.point.x.toFixed(2) + " " +  tumbukan.point.z.toFixed(2));
+
+                let lingkaran = document.querySelector('#lingkaran');
+                lingkaran.setAttribute('position', tumbukan.point);
+
+            }
+        });
+
+        window.addEventListener('touchstart', function(){
+            let box = document.querySelector('#box');
+            let lingkaran = document.querySelector('#lingkaran');
+            let pos = document.querySelector('#position');
+            let posBox = document.getAttribute('position');
+
+            let distance = posBox.distanceTo(pos);
+
+            let position_string = `${pos.x.toFixed(2)} ${pos.y.toFixed(2)} ${pos.z.toFixed(2)}`;
+            box.setAttribute('animation', 'property:position; to:${position_string}; dur:${distance * 500};')
+           // box.setAttribute('position', pos);
+
+        })
+    </script>
+    <a-scene ar ar-logic>
+        <a-camera id="cam" ar-raycaster raycaster="object:none">
+            <a-text 
+                id="hud" 
+                value="contoh text" 
+                position="0 -0.1 -0.25" 
+                align="center" 
+                wrap-count="800"></a-text>
+        </a-camera>
+
+        <a-ring
+            id="lingkaran"
+            rotation="-90 0 0"
+            radius-inner="0.01"
+            radius-outer="0.02"
+        ></a-ring>
+        
+        <a-box animation color="red" scale="0.2 0.2 0.2"></a-box>
+
+    </a-scene>
+</body>
+</html>

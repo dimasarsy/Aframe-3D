@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
+    <title>30-Aframe GUI</title>
+</head>
+<body>
+    <a-scene>
+        <a-camera>
+            <a-gui-cursor design="cross" fuse="true" fuse-timeout="3000"></a-gui-cursor>
+        </a-camera>
+        <a-gui-flex-container panel-color="red" align-items="center" flex-direction="row" width=5 height=5 opacity=0.5 position="0 1.5 -3">
+            
+            <a-gui-button value="A" ></a-gui-button>
+            <a-gui-button value="B" ></a-gui-button>
+            <a-gui-button value="C" ></a-gui-button>
+            
+            <a-gui-flex-container panel-color="green" align-items="center" flex-direction="column"  opacity=0.5 position="0 1.5 -3">
+                <a-gui-button value="A" ></a-gui-button>
+                <a-gui-button value="B" ></a-gui-button>
+                <a-gui-button value="C" ></a-gui-button>
+            </a-gui-flex-container>
+        </a-gui-flex-container>
+
+    </a-scene>
+</body>
+</html>

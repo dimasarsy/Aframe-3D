@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="//aframe.io/releases/0.8.2/aframe.min.js"></script>
+    <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <script>
+        AFRAME.registerComponent('nav-pointer',{
+            init : function(){
+                let el = this.el;
+
+                el.addEventListener('click', function(e){
+                    //lokasi mouse click saya
+                    let lokasi_click = e.detail.intersection.point;
+                    let agent = document.querySelector("[nav-agent]");
+                    agent.setAttribute('nav-agent',{
+                        active : true,
+                        destination : lokasi_click
+                    })
+                });
+                el.addEventListener('mouseenter', function(){
+                    el.setAttribute('material', {color:"green"});
+                });
+
+                el.addEventListener('mouseleave', function(){
+                    el.setAttribute('material', {color:"red"});
+                });
+
+                el.sceneEl.addEventListener('object3dset', function(){
+                    el.components.raycaster.refreshObjects();
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+    <a-scene inspector-plugin-recast>
+        
+        <a-entity id="rig" position="0 0 5" movement-controls="constrainToNavMesh:true">
+            <a-entity camera position="0 1.5 0" look-controls>
+                <a-cursor nav-pointer raycaster="objects:[nav-mesh]"></a-cursor>
+            </a-entity>
+        </a-entity>
+
+        <a-gltf-model src="model/navmesh.gltf" nav-mesh position="0 0.1 0" visible="false"></a-gltf-model>
+
+        <a-entity id="kereta" nav-agent position="2 0.1 -2">
+            <a-box color="red" position="0 1.5 0" ></a-box>
+        </a-entity>
+        
+
+        <a-box src="texture/grass.jpg" repeat="20 20" width="20" height="0.2" depth="20"></a-box>
+
+        <a-box src="texture/Brick/basecolor.jpg" width="2" height="5" depth="2" position="0 2.5 -5"></a-box>
+        <a-box src="texture/Brick/basecolor.jpg" width="2" height="5" depth="2" position="-4 2.5 -5"></a-box>
+        <a-box src="texture/Brick/basecolor.jpg" width="2" height="5" depth="2" position="4 2.5 -5"></a-box>
+        <a-box src="texture/Brick/basecolor.jpg" rotation="90 0 0" width="2" height="5" depth="1" position="-4 2 -3"></a-box>
+        <a-box src="texture/Brick/basecolor.jpg" rotation="90 0 0" width="2" height="5" depth="1" position="4 2.5 -3"></a-box>
+        <a-box src="texture/Brick/basecolor.jpg" width="2" height="5" depth="2" position="-8 2.5 -5"></a-box>
+        <a-box src="texture/Brick/basecolor.jpg" width="2" height="5" depth="2" position="8 2.5 -5"></a-box>
+        <a-box src="texture/Brick/basecolor.jpg" rotation="105 0 0" width="2" height="5" depth="1" position="8 1 -2"></a-box>
+        <a-box src="texture/Brick/basecolor.jpg" rotation="120 0 0" width="2" height="5" depth="1" position="-8 1 -2"></a-box>
+        <a-box src="texture/Brick/basecolor.jpg" width="2" height="5" depth="2" position="4 2.5 -5"></a-box>
+    </a-scene>
+</body>
+</html>

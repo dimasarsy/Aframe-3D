@@ -1,0 +1,60 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.js"></script>
+    <title>17-Custom Component Update Tick</title>
+</head>
+<body>
+    <script>
+        AFRAME.registerComponent('hello-aframe',{
+            schema:{
+                pesan:{type:"string", default:"hello"},
+                pesan2:{type:"string", default:"sesuatu"},
+            },
+            update : function(){
+                console.log("UPDATE");
+            },
+            tick : function(){
+                this.el.getObject3D("mesh").rotation.y += 0.01;
+            },
+            init : function(){
+                
+                let data = this.data;
+                let el =this.el;
+
+                // tick ubah warna
+                this.el.getObject3D("mesh").material.color = new THREE.Color("yellow");
+
+                this.el.addEventListener("click", function(ev){
+                    //muncul pesan
+                    console.log(data.pesan + " " + data.pesan2);
+
+                    // update
+                    ev.srcElement.setAttribute("hello-aframe","pesan:hallo juga");
+                });
+            }
+        });
+    </script>
+    <a-scene>
+        <a-camera>
+            <a-cursor></a-cursor>
+        </a-camera>
+
+        <a-box
+            hello-aframe="pesan:hello; pesan2:box-merah"
+            id="box1"
+            material="color:red"
+            position="-2 1.5 -3"
+        ></a-box>
+        <a-box
+            hello-aframe="pesan:hello; pesan2:box-hijau"
+            id="box1"
+            material="color:green"
+            position="2 1.5 -3"
+        ></a-box>
+    </a-scene>
+</body>
+</html>

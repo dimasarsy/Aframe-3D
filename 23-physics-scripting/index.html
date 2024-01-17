@@ -1,0 +1,55 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v$npm_package_version/dist/aframe-physics-system.min.js"></script>
+    <title>23-Physics Scripting</title>
+</head>
+<body>
+    <script>
+        AFRAME.registerComponent('pushableobject',{
+            init : function(){
+                let el = this.el;
+
+                el.addEventListener('collide', function(ev){
+                    console.log("%c" + ev.srcElement.id, "font-size:2em");
+                });
+
+                el.addEventListener('click', function(){
+                    
+                    let position = el.getAttribute('position');
+                    let object_position = new THREE.Vector3(position.x, position.y, position.z);
+                    
+                    let position_cam =document.querySelector("#cam").getAttribute("position");
+                    let cam_pos = new THREE.Vector3(position_cam.x, position_cam.y, position_cam.z);
+                    
+                    let direction = cam_pos.sub(object_position); // ke arah camera (toward camera)
+
+                    direction = direction.normalize();
+                    let speed = -10;
+                    direction.multiplyScalar(speed);
+
+                    el.body.applyImpulse(
+                        new CANNON.Vec3(direction.x ,0, direction.z), // ke arah z- away from camera
+                        new CANNON.Vec3().copy(object_position)
+                    );
+
+
+                });
+            }
+        })
+    </script>
+    <a-scene physics="debug:true">
+        <a-camera id="cam">
+            <a-cursor></a-cursor>
+        </a-camera>
+
+        <a-box shadow rotation="-90 0 0" color="#888" static-body width="10" depth="0.2" height="10" position="0 0 -5"></a-box>
+        <a-sphere id="red" pushableobject radius="0.2" color="red" shadow dynamic-body="mass:5" position="0 1.5 -3"></a-sphere>
+        <a-sphere id="green" pushableobject radius="0.2" color="green" shadow dynamic-body="mass:10" position="2 1.5 -5"></a-sphere>
+        <a-sphere id="blue" pushableobject radius="0.2" color="blue" shadow dynamic-body="mass:50" position="-2 1.5 -5"></a-sphere>
+    </a-scene>
+</body>
+</html>

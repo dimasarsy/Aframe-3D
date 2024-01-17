@@ -1,0 +1,64 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.js"></script>
+    <title>20-Sound Component</title>
+</head>
+<body>
+    <script>
+        AFRAME.registerComponent('soundcontroller' ,{
+            init : function(){
+                let el = this.el;
+                el.addEventListener('click', function(ev){
+                    
+                // NAMA DI CONSOLE    
+                    let id = ev.srcElement.id;
+                    console.log('%c${id}',"font-size:2em;");
+
+                // PLAY-PAUSE-STOP
+                    let speaker =document.querySelector("#speaker");
+                
+                    if(id == "play"){
+                        speaker.components.sound.playSound();
+                    } else if(id == "pause"){
+                        speaker.components.sound.pauseSound();
+                    } else{
+                        speaker.components.sound.stopSound();
+                    }
+
+                });
+            }
+        })
+    </script>
+    <a-scene>
+        <a-camera>
+            <a-cursor raycaster="object:a-box"></a-cursor>
+        </a-camera>
+
+        <!-- sound <a-sound src="sound/marimba.mp3" autoplay="true"></a-sound> -->
+
+        <a-sky src="texture/sky.png"></a-sky>
+        <a-ocean widht="100" depth="100" density="40"></a-ocean>
+        <a-gltf-model
+            src="model/island.gltf"
+            gltf-model="model/island.gltf"
+            scale="0.5 0.5 0.5"
+            rotation="0 90 0"
+            position="0 -0.5 -5"
+        ></a-gltf-model>
+
+        <a-box  color="#F00" position="0 2 -3"
+            id="speaker"
+            sound="src:sound/marimba.mp3; autoplay:false"
+        ></a-box>
+        
+        <a-box soundcontroller id="play" color="#500" position="0 1 -2" scale="0.5 0.5 0.5"></a-box>
+        <a-box soundcontroller id="pause" color="#550" position="2 1 -2" scale="0.5 0.5 0.5"></a-box>
+        <a-box soundcontroller id="stop" color="#050" position="-2 1 -2 " scale="0.5 0.5 0.5"></a-box>
+
+    </a-scene>
+</body>
+</html>
